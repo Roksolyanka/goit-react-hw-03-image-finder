@@ -30,7 +30,14 @@ export class App extends Component {
   };
 
   onSubmit = query => {
-    this.setState({ query, images: [], page: 1 }, this.fetchImages);
+    const queryTrim = query.trim();
+    if (queryTrim === '') {
+      return toast.error(
+        'You did not specify data for the search, please try again!',
+        toastConfig
+      );
+    }
+    this.setState({ query: queryTrim, images: [], page: 1 }, this.fetchImages);
   };
 
   fetchImages = async () => {
@@ -43,7 +50,7 @@ export class App extends Component {
         toastConfig
       );
     }
-    
+
     const url = `https://pixabay.com/api/?q=${query}&page=${page}&key=${apiKey}&image_type=photo&orientation=horizontal&per_page=12`;
 
     this.setState({ isLoading: true });
