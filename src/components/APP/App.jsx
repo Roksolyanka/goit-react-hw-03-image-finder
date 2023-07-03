@@ -36,12 +36,14 @@ export class App extends Component {
   fetchImages = async () => {
     const { query, page } = this.state;
     const apiKey = '36422452-9b888b62de5b5be2dbb1e9e04';
+
     if (!query) {
       return toast.error(
         'You did not specify data for the search, please try again!',
         toastConfig
       );
     }
+    
     const url = `https://pixabay.com/api/?q=${query}&page=${page}&key=${apiKey}&image_type=photo&orientation=horizontal&per_page=12`;
 
     this.setState({ isLoading: true });
